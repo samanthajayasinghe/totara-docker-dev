@@ -188,6 +188,7 @@ services:
       - GRID_CLEAN_UP_CYCLE=120000
 
   selenium-chrome:
+#    image: selenium/node-chrome-debug:3.7.1
     image: selenium/node-chrome:3.7.1
     depends_on:
       - selenium-hub
@@ -196,11 +197,13 @@ services:
       - HUB_PORT_4444_TCP_PORT=4444
       - NODE_MAX_INSTANCES=8
       - NODE_MAX_SESSION=8
+#    ports:
+#      - "49338:5900"
     networks:
       - totara
 
   selenium-chrome-standalone:
-    image: selenium/standalone-chrome:3.7.1
+    image: selenium/standalone-chrome:3.8.1
     networks:
       - totara
 
@@ -208,6 +211,17 @@ services:
     image: tophfr/mailcatcher
     ports:
       - "8080:80"
+    networks:
+      - totara
+
+  chrome:
+    build: chrome
+#    build:
+#      context: chrome
+#      args:
+#        - CHROME_VERSION="google-chrome-stable=62.0.3202.94-1"
+    ports:
+      - "9222:9222"
     networks:
       - totara
 
