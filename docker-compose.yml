@@ -203,13 +203,14 @@ services:
     working_dir: ${REMOTE_SRC}
 
   pgsql:
-    image: postgres:10.3
+    image: postgres:10.4
     ports:
       - "5432:5432"
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - pgsql-data:/var/lib/postgresql/data
+    command: postgres -c 'shared_buffers=12GB' -c 'effective_cache_size=24GB' -c 'work_mem=128MB' -c 'max_worker_processes=20' -c 'max_parallel_workers=20'
     depends_on:
      - nginx
     networks:
@@ -279,7 +280,7 @@ services:
       - totara
     environment:
       - GRID_MAX_SESSION=8
-      - GRID_TIMEOUT=7200
+      - GRID_TIMEOUT=0
       - GRID_CLEAN_UP_CYCLE=120000
     depends_on:
       - selenium-chrome
