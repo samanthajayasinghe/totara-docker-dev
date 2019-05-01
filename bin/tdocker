@@ -14,6 +14,7 @@ files=(
     "compose/pgsql.yml"
     "compose/php.yml"
     "compose/selenium.yml"
+    "compose/elasticsearch.yml"
 )
 
 if [ -f "$PROJECTPATH/.use-mutagen" ]; then
